@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.calendario-container {
+    max-width: 300px; /* Ajusta el valor según tus necesidades */
+    margin: 0 auto; /* Centra el calendario */
+    border: 1px solid #ccc; /* Añade un borde para mayor claridad */
+    border-radius: 5px; /* Añade esquinas redondeadas */
+    padding: 10px; /* Añade un poco de espacio alrededor del calendario */
+  }
+
+  
