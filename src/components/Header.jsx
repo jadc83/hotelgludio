@@ -8,24 +8,21 @@ import Banderas from './banderas'
 
 function Header() {
   return (
-    <cabecera className="flex ml-28 mt-12">
+    <cabecera className="flex">
         <div className='flex-column'>
             <Rrss />
             <NavIzq />
-            <div className='mr-24 mt-4'>
             <Separador />
-            </div>
         </div>
-        <div className='ml-32'>
+
             <Logotipo />
-        </div>
-        <div className='flex-column'>
+
+        <div className='flex-column space-x-9'>
             <Banderas />
             <NavDer />
-            <div className='mr-24 mt-4'>
             <Separador />
+
         </div>
-  </div>
     </cabecera>
 
   );

@@ -1,7 +1,6 @@
-// src/components/FormDataView.jsx
 import React from 'react';
 
-const FormDataView = ({ formData }) => {
+const Reserva = ({ formData }) => {
   return (
     <div>
       <h2>Datos del formulario:</h2>
@@ -10,4 +9,4 @@ const FormDataView = ({ formData }) => {
   );
 };
 
-export default FormDataView;
+export default Reserva;

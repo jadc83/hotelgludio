@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Reserva from './components/Reserva';
 import Header from './components/Header';
 import Formulario from './components/Formulario';
-import Calendario from './components/Calendario';  // Asegúrate de ajustar la ruta correcta
+import Calendario from './components/Calendario';
+import Footer from './components/Footer';
 
 
 
@@ -18,10 +19,9 @@ function App() {
       try {
         const response = await fetch('/datos.json');
         const ContenidoJson = await response.json();
-        const jsonString = JSON.stringify(ContenidoJson, null, 2);
         setContenidoJson(ContenidoJson);
       } catch (error) {
-        console.error('Error al recuperar las fechas disponibles:',error.message, error);
+        console.error('Error leyendo fechas disponibles:',error.message, error);
       }
     };
 
@@ -46,7 +46,7 @@ function App() {
 
       setShowDataView(true);
     } catch (error) {
-      console.error('Error al procesar el formulario:', error);
+
       setMensajeEncontrado('Ocurrió un error al procesar el formulario.');
     }
   };
@@ -58,17 +58,14 @@ function App() {
           <Header />
           <Reserva formData={formData} />
           <p>{mensajeEncontrado}</p>
-          <button onClick={() => setShowDataView(false)}>Volver</button>
-
-          {/* Botón que muestra o cierra el calendario */}
-          <button onClick={() => setShowCalendario((prev) => !prev)}>
+          <button className="bg-gray-300 mr-8 p-4 rounded-lg" onClick={() => setShowDataView(false)}>Volver</button>
+          <button className="bg-gray-300 p-4 rounded-lg" onClick={() => setShowCalendario((prev) => !prev)}>
             {showCalendario ? 'Cerrar Calendario' : 'Mostrar Calendario'}
           </button>
-
-          {/* Muestra el calendario solo cuando showCalendario es true */}
           {showCalendario && (
             <Calendario datosJson={ContenidoJson} onClose={() => setShowCalendario(false)} />
           )}
+          <Footer/>
         </div>
       ) : (
         <div>
@@ -77,6 +74,7 @@ function App() {
           <div className='bg-black justify-center'>
             <Formulario onSubmit={onSubmit} />
           </div>
+          <Footer/>
         </div>
       )}
     </div>

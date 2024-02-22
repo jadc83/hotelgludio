@@ -16,43 +16,31 @@ const Calendario = ({ datosJson, onClose }) => {
   const manejarSeleccionFecha = (dia) => {
     const nuevaFecha = new Date(2024, mesActual - 1, dia + 1).toISOString().split('T')[0];
     setFechaSeleccionada(nuevaFecha);
-    setMostrarInfoAnterior(true);
-  };
+    setMostrarInfoAnterior(true);};
 
   const obtenerDiasDelMes = () => {
     const primerDiaDelMes = new Date(2024, mesActual - 1, 1);
     const ultimoDiaDelMes = new Date(2024, mesActual, 0).getDate();
     const primerDiaSemana = primerDiaDelMes.getDay();
-
     const diasDelMes = [];
     let semana = [];
 
-    // Rellenar los días de la semana previos al primer día del mes
-    for (let i = 0; i < primerDiaSemana; i++) {
-      semana.push(null);
-    }
+    //Rellenar días semana previos al primer día del mes
+    for (let i = 0; i < primerDiaSemana; i++) {semana.push(null);}
 
-    // Rellenar los días del mes
+    //Rellena días mes
     for (let dia = 1; dia <= ultimoDiaDelMes; dia++) {
       const fechaActual = new Date(2024, mesActual - 1, dia).toISOString().split('T')[0];
       const disponibilidadFecha = datosJson.find((item) => {
-        return fechaActual === item.fecha.split('T')[0] && item.disponibilidad;
-      });
+        return fechaActual === item.fecha.split('T')[0] && item.disponibilidad;});
 
-      // Agregar el día con la disponibilidad como propiedad
-      semana.push({
-        dia: dia,
-        disponibilidad: disponibilidadFecha ? true : false,
-      });
+      semana.push({dia: dia,disponibilidad: disponibilidadFecha ? true : false});
 
-      // Si llegamos al final de la semana, iniciamos una nueva semana
       if (semana.length === 7) {
         diasDelMes.push([...semana]);
         semana = [];
       }
     }
-
-    // Aseguramos que la última semana se agregue incluso si no tiene 7 días completos
     if (semana.length > 0) {
       diasDelMes.push([...semana]);
     }
@@ -62,7 +50,7 @@ const Calendario = ({ datosJson, onClose }) => {
 
   return (
     <div style={{ fontSize: '16px', padding: '20px' }}>
-      <h2>Calendario Mensual - {obtenerNombreMes(mesActual)}</h2>
+      <h2 className='object-center'>{obtenerNombreMes(mesActual)} 2024</h2>
       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
         <thead>
           <tr>
@@ -103,14 +91,12 @@ const Calendario = ({ datosJson, onClose }) => {
       {mostrarInfoAnterior && (
         <div style={{ marginTop: '20px' }}>
           <p>Fecha de salida: {fechaSeleccionada}</p>
-          {/* Aquí puedes agregar cualquier información adicional */}
         </div>
       )}
       <div className="mt-12">
         <button className="p-4 bg-gray-700 text-white" onClick={() => cambiarMes('atras')}>Atrás</button>
         <button className="p-4 bg-gray-700 text-white" onClick={() => cambiarMes('adelante')}>Adelante</button>
       </div>
-      <button onClick={onClose} style={{ marginTop: '20px' }}>Cerrar Calendario</button>
     </div>
   );
 };
