@@ -167,11 +167,3 @@
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
 }
-
-.fecha-disponible {
-  background-color: verde; /* Cambia a tu color disponible */
-}
-
-.fecha-no-disponible {
-  background-color: rojo; /* Cambia a tu color no disponible */
-}

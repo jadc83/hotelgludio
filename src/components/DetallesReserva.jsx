@@ -58,23 +58,21 @@ function DetallesReserva({ fechaIn, fechaOut, diferenciaDias, CheckFechasNoDispo
             </div>
           ) : (
             <div className="flex flex-col justify-center items-center">
-              <Boton etiqueta="Reservar" onClick={reservar} />
+              <Boton etiqueta="Completar la reserva" onClick={reservar} />
               {datosReserva.length > 0 && (
                 <table className="border-collapse w-3/4">
                   <thead>
                     <tr>
                       <th className="border-2 bg-black text-white border-gray-700 p-1">Fecha de Llegada</th>
                       <th className="border-2 bg-black text-white border-gray-700 p-1">Fecha de Salida</th>
-                      <th className="border-2 bg-black text-white border-gray-700 p-1">Estancia</th>
                     </tr>
                   </thead>
                   <tbody>
                     {datosReserva.map((reserva, index) => (
                       <tr key={reserva.id}>
-                        <td className="border-2 p-1">Fecha de Llegada: {reserva.fechaLlegada}</td>
-                        <td className="border-2 p-1">Fecha de Salida: {reserva.fechaSalida}</td>
-                        <td className="border-2 p-1">Estancia: {diferenciaDias}</td>
-                        <td className="border-2 p-1">
+                        <td className="border-2 p-1">{reserva.fechaLlegada}</td>
+                        <td className="border-2 p-1">{reserva.fechaSalida}</td>
+                        <td className="w-[3em] border-2 p-1">
                           <Boton etiqueta="Eliminar reserva" onClick={() => eliminarReserva(reserva.id)} />
                         </td>
                       </tr>

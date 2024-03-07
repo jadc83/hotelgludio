@@ -26,10 +26,6 @@ function App() {
     }
   };
 
-  const volverAFormulario = () => {
-    setmostrarReservas(false);
-  };
-
   const handleEnviarLlegada = (date) => {
     inputLlegada(date);
   };
