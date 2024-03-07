@@ -1,80 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import Reserva from './components/Reserva';
-import Header from './components/Header';
-import Formulario from './components/Formulario';
-import Calendario from './components/Calendario';
-import Footer from './components/Footer';
-
-
+import Nav from './components/interface/Nav';
+import CalendarioLlegada from './components/CalendarioLlegada';
+import CalendarioSalida from './components/CalendarioSalida';
+import Footer from './components/interface/Footer';
+import contenidoJson from './datos.json';
+import Boton from './components/interface/boton';
 
 function App() {
-  const [formData, setFormData] = useState(null);
-  const [showDataView, setShowDataView] = useState(false);
-  const [ContenidoJson, setContenidoJson] = useState([]);
-  const [mensajeEncontrado, setMensajeEncontrado] = useState('');
-  const [showCalendario, setShowCalendario] = useState(false);
+  const [mostrarReservas, setmostrarReservas] = useState(false);
+  const [fechaIn, setFechaIn] = useState(null);
+  const [fechaOut, setFechaOut] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/datos.json');
-        const ContenidoJson = await response.json();
-        setContenidoJson(ContenidoJson);
-      } catch (error) {
-        console.error('Error leyendo fechas disponibles:',error.message, error);
-      }
-    };
+  const inputLlegada = (date) => {
+    setFechaIn(date);
+  };
 
-    fetchData();
-  }, []);
+  const inputSalida = (date) => {
+    setFechaOut(date);
+  };
 
-  const onSubmit = (data) => {
-    setFormData(data);
-
-    try {
-      const fechaReservaFormulario = new Date(data.fechaReserva).toISOString().split('T')[0];
-      const disponibilidadFecha = ContenidoJson.find((item) => {
-        const fechaJSON = item.fecha.split('T')[0];
-        return fechaReservaFormulario === fechaJSON;
-      });
-
-      if (disponibilidadFecha && disponibilidadFecha.disponibilidad) {
-        setMensajeEncontrado('La habitación está disponible en la fecha seleccionada.');
-      } else {
-        setMensajeEncontrado('La habitación NO está disponible en la fecha seleccionada.');
-      }
-
-      setShowDataView(true);
-    } catch (error) {
-
-      setMensajeEncontrado('Ocurrió un error al procesar el formulario.');
+  const mostrarDatos = () => {
+    if (fechaIn && fechaOut) {
+      setmostrarReservas(true);
     }
   };
 
-    return (
+  const volverAFormulario = () => {
+    setmostrarReservas(false);
+  };
+
+  const handleEnviarLlegada = (date) => {
+    inputLlegada(date);
+  };
+
+  const handleEnviarSalida = (date) => {
+    const fechaSalidaIncrementada = new Date(date);
+    fechaSalidaIncrementada.setDate(fechaSalidaIncrementada.getDate() + 1);
+    inputSalida(fechaSalidaIncrementada);
+  };
+
+  return (
     <div>
-      {showDataView ? (
+      {mostrarReservas ? (
         <div>
-          <Header />
-          <Reserva formData={formData} />
-          <p>{mensajeEncontrado}</p>
-          <button className="bg-gray-300 mr-8 p-4 rounded-lg" onClick={() => setShowDataView(false)}>Volver</button>
-          <button className="bg-gray-300 p-4 rounded-lg" onClick={() => setShowCalendario((prev) => !prev)}>
-            {showCalendario ? 'Cerrar Calendario' : 'Mostrar Calendario'}
-          </button>
-          {showCalendario && (
-            <Calendario datosJson={ContenidoJson} onClose={() => setShowCalendario(false)} />
-          )}
-          <Footer/>
+          <Nav />
+          <Reserva fechaIn={fechaIn} fechaOut={fechaOut} contenidoJson={contenidoJson} />
+          <Footer />
         </div>
       ) : (
         <div>
-          <Header />
-
-          <div className='bg-black justify-center'>
-            <Formulario onSubmit={onSubmit} />
+          <Nav />
+          <div className='flex justify-center bg-black items-center'>
+            <div className='text-white'>
+                {fechaIn && fechaOut ? (
+                  `Fecha de llegada: ${fechaIn.toLocaleDateString()} - Fecha de salida: ${fechaOut.toLocaleDateString()}`
+                ) : (
+                  'Selecciona las fechas de llegada y salida'
+                )}
+            </div>
+              <Boton etiqueta="Reservar" onClick={mostrarDatos} />
           </div>
-          <Footer/>
+          <div className='flex w-full space-x-12 h-[32em] bg-[url("./assets/espacios/hall.jpg")] justify-center items-center'
+               style={{ backgroundPosition: 'center top', backgroundRepeat: 'no-repeat', backgroundSize: '100%' }}>
+            
+            <div className='shadow-lg'>
+              <p className='bg-black p-1 text-white' >Check-In</p>
+              <CalendarioLlegada GetCheckIN={inputLlegada} onEnviarClick={handleEnviarLlegada} />
+            </div>
+            <div className='shadow-lg'>
+              <p className='bg-black p-1 text-white'>Check-Out</p>
+              <CalendarioSalida GetCheckOut={inputSalida} onEnviarClick={handleEnviarSalida} />
+            </div>
+          </div>
+
+          <Footer />
         </div>
       )}
     </div>
