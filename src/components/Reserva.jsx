@@ -116,7 +116,7 @@ function Reserva({ fechaIn, fechaOut, contenidoJson}) {
         mostrarFechas={mostrarFechas}
         reservar={reservar}
         setMostrarFechas={setMostrarFechas}
-        setDatosReserva={setDatosReserva} // Asegúrate de que estás pasando esto correctamente
+        setDatosReserva={setDatosReserva}
       />
       <BotonesReserva 
         diferenciaDias={diferenciaDias} 
