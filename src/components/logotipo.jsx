@@ -1,5 +1,5 @@
 import React from 'react';
-import MiSVG from '../../assets/milogo.svg';
+import MiSVG from '../assets/svg/milogo.svg';
 
 
 function Logotipo() {

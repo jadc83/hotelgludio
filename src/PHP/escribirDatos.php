@@ -11,6 +11,19 @@ $reservasJson = './reservas.json';
 $inputJSON = file_get_contents('php://input');
 $inputData = json_decode($inputJSON, true);
 
+function codigoAleatorio() {
+    $caracteres = 'BCDFGHJKLMNPQRSTVWXZ013579';
+    $longitudCodigo = 8;
+    $codigoAleatorio = '';
+
+    for ($i = 0; $i < $longitudCodigo; $i++) {
+        $indiceAleatorio = mt_rand(0, strlen($caracteres) - 1);
+        $codigoAleatorio .= $caracteres[$indiceAleatorio];
+    }
+
+    return $codigoAleatorio;
+}
+
 if ($inputData === null) {
     http_response_code(400);
     die(json_encode(['error' => 'Error al decodificar el JSON.']));
@@ -20,6 +33,7 @@ $nuevaReserva = [
     'id' => $inputData['id'],
     'fechaLlegada' => $inputData['fechaLlegada'],
     'fechaSalida' => $inputData['fechaSalida'],
+    'codigoReserva'=> codigoAleatorio()
 ];
 
 $jsonString = file_get_contents($reservasJson);

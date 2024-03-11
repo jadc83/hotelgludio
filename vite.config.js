@@ -12,4 +12,5 @@ export default defineConfig({
   resolve: {
     extensions: ['.mjs', '.js', '.jsx', '.json']
   },
+  assetsInclude: ["**/*.html"],
 });

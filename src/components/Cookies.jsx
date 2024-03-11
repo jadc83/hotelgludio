@@ -1,5 +1,5 @@
 import React from 'react';
-import imgCookies from '../../assets/cookies.svg';
+import imgCookies from '../assets/svg/cookies.svg';
 
 function Cookies() {
   return (

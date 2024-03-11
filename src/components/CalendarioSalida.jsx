@@ -7,7 +7,7 @@ function CalendarioSalida({ GetCheckOut }) {
 
   const handleDateSelect = (date) => {
     setFechaOut(date);
-    GetCheckOut(date); // Notificar a la aplicación principal sobre la fecha seleccionada
+    GetCheckOut(date);
   };
 
   return (

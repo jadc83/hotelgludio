@@ -1,5 +1,5 @@
 import React from 'react';
-import imgLicencia from '../../assets/creative.svg';
+import imgLicencia from '../assets/svg/creative.svg';
 
 
 function Licencia() {

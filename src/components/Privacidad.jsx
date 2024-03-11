@@ -1,5 +1,5 @@
 import React from 'react';
-import imgPrivacidad from '../../assets/privacidad.svg';
+import imgPrivacidad from '../assets/svg/privacidad.svg';
 
 
 function Privacidad() {
